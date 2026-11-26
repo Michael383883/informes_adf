@@ -1,0 +1,7 @@
+Flask>=3.0
+python-docx>=1.1
+Pillow>=10.0
+pillow-heif>=0.16          # fotos HEIC de iPhone (opcional pero recomendado)
+anthropic>=0.40            # "Redactar con IA" (opcional: sin clave usa el redactor básico)
+pywin32>=306; sys_platform == "win32"   # exportar a PDF con Microsoft Word
+# mcp>=1.0                 # solo si quieres usar server.py como servidor MCP

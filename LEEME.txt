@@ -1,0 +1,58 @@
+GENERADOR DE INFORMES - ARMADA DE FE
+====================================
+
+INICIO RAPIDO (Windows)
+  1. Instala Python 3.10 o mayor desde python.org (marca "Add Python to PATH").
+  2. Doble clic en  iniciar.bat   (la 1.ª vez instala las librerias solas).
+  3. Se abre el navegador en http://127.0.0.1:5000
+     Paso 1 notas -> Paso 2 revisar -> Paso 3 fotos -> Paso 4 generar.
+
+  Linux / Mac:  ./iniciar.sh
+
+INSTALACION MANUAL
+  python -m venv .venv
+  .venv\Scripts\activate          (Linux/Mac: source .venv/bin/activate)
+  pip install -r requirements.txt
+  python app.py
+
+QUE LIBRERIAS USA
+  Flask (web) · python-docx (Word) · Pillow + pillow-heif (fotos) ·
+  anthropic (IA, opcional) · pywin32 (PDF con Word en Windows, opcional)
+
+PDF
+  Windows con Word instalado -> lo usa automaticamente.
+  Si no hay Word, usa LibreOffice si esta instalado. Si no hay ninguno,
+  igual obtienes el .docx y puedes guardarlo como PDF desde Word.
+
+"REDACTAR CON IA" (opcional)
+  Copia .env.ejemplo a .env y pon tu ANTHROPIC_API_KEY. Sin clave funciona un
+  redactor basico (limpia el texto y detecta fecha/modalidad/participantes).
+
+COMO SE DISTRIBUYEN LAS FOTOS
+  Hoja 1 : texto + 1 foto (la 1.ª), escalada sin deformar para llenar el espacio
+           que deja el texto. Mientras mas corto el "Desarrollo", mas grande sale.
+           (El ancho lo limita la columna de contactos de tu formato: ~12 cm.)
+  Hoja 2+: 1 foto = grande | 2 = lado a lado | 3 = 2 arriba + 1 abajo | 4 = 2x2
+           Mas de 4 se reparte en bloques de 4 (el sobrante se rebalancea: 4+1 -> 3+2).
+           Ej.: 7 fotos = [1, 4, 2]     Ej.: 9 fotos = [1, 4, 4]
+  Altura maxima de cada foto agrupada: 9 cm. En la ultima hoja se reduce lo justo
+  para que tambien quepan "Agradecido..." y la firma sin crear una hoja extra.
+  Con 0 o 1 foto, el texto de cierre y la firma quedan en la hoja 2.
+
+ARCHIVOS
+  app.py          servidor web (Flask)
+  generador.py    motor: plan de fotos, tablas, margenes 0, saltos de pagina, PDF
+  server.py       servidor MCP opcional (pip install mcp)
+  static/index.html   la interfaz
+  plantilla/plantilla.docx   tu formato con marcadores {{REF}} {{ACTIVIDAD}}
+        {{FECHA_EVENTO}} {{MODALIDAD}} {{PARTICIPANTES}} {{DESARROLLO}}
+        {{FOTOS}} {{CIERRE}}
+  tools/preparar_plantilla.py  crea plantilla.docx desde tu formato original
+        (copia formato_Armada_de_fe_2026.docx a plantilla/formato_original.docx)
+  tools/probar.py  prueba sin navegador:  python tools/probar.py 7
+  salidas/        aqui quedan los .docx y .pdf
+  entrada/        copia de las fotos subidas (puedes borrarla cuando quieras)
+
+AJUSTES (arriba de generador.py)
+  ANCHO_UTIL_CM, ALTO_MAX_CM, ALTO_MAX_GRUPO_CM, MARGEN_CM,
+  MODO_AJUSTE_GRUPO = "contain" (sin recortar) o "cover" (llena cada celda recortando)

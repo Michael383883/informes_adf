@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.qodo/
+.env
+entrada/
+salidas/
+*.pyc

@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b3d91" />
+  <title>Informes Armada de Fe</title>
+  <style>
+    :root {
+      --azul: #0b3d91;
+      --azul-osc: #082c69;
+      --naranja: #e8791d;
+      --fondo: #eef1f6;
+      --tarjeta: #ffffff;
+      --borde: #d6dbe4;
+      --texto: #1a1f2b;
+      --suave: #667085;
+      --ok-bg: #e8f5e9;
+      --ok-bd: #a5d6a7;
+      --ok-tx: #1b5e20;
+      --av-bg: #fff8e1;
+      --av-bd: #f0d98c;
+      --av-tx: #7a5b00;
+      --er-bg: #fdecea;
+      --er-bd: #f5b5ae;
+      --er-tx: #8a1c12;
+      --radio: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+      padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* ---------- Cabecera ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: linear-gradient(135deg, var(--azul), var(--azul-osc));
+      color: #fff;
+      padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+    }
+
+    header .marca {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    header .logo {
+      width: 36px;
+      height: 36px;
+      flex: none;
+      border-radius: 10px;
+      background: var(--naranja);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    header small {
+      display: block;
+      font-size: 12px;
+      opacity: .8;
+      font-weight: 400;
+    }
+
+    .btn-nuevo {
+      background: rgba(255, 255, 255, .15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: none;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px 14px 24px;
+    }
+
+    /* ---------- Tarjetas ---------- */
+    .card {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      padding: 18px 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, .05);
+    }
+
+    .card-h {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .num {
+      width: 28px;
+      height: 28px;
+      flex: none;
+      border-radius: 50%;
+      background: var(--azul);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      display: grid;
+      place-items: center;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 17px;
+      color: var(--azul);
+    }
+
+    .hint {
+      font-size: 13px;
+      color: var(--suave);
+      margin: 4px 0 0;
+    }
+
+    /* ---------- Formularios ---------- */
+    .campo {
+      margin-bottom: 14px;
+    }
+
+    .campo:last-child {
+      margin-bottom: 0;
+    }
+
+    label.et {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .opc {
+      font-weight: 400;
+      color: var(--suave);
+      font-size: 12px;
+    }
+
+    input[type=text],
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid var(--borde);
+      border-radius: 12px;
+      font-size: 16px;
+      /* 16px evita el zoom automático en iPhone */
+      font-family: inherit;
+      background: #fff;
+      color: var(--texto);
+      appearance: none;
+    }
+
+    input[type=text]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(11, 61, 145, .15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 620px) {
+      .grid2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .con-icono {
+      position: relative;
+    }
+
+    .con-icono input[type=text] {
+      padding-right: 56px;
+    }
+
+    .icono-btn {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #eef3ff;
+      color: var(--azul);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .icono-btn input {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      border: 0;
+    }
+
+    /* Botones segmentados (modalidad) */
+    .segm {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .segm button {
+      padding: 12px 6px;
+      border: 1.5px solid var(--borde);
+      background: #fff;
+      color: var(--texto);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .segm button.on {
+      background: var(--azul);
+      border-color: var(--azul);
+      color: #fff;
+    }
+
+    .contador {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--suave);
+      margin-top: 6px;
+    }
+
+    #medidor {
+      font-weight: 600;
+    }
+
+    #medidor.ok {
+      color: var(--ok-tx);
+    }
+
+    #medidor.med {
+      color: var(--av-tx);
+    }
+
+    #medidor.mal {
+      color: var(--er-tx);
+    }
+
+    /* ---------- Fotos ---------- */
+    .zona-fotos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+      border: 2px dashed #a9b7d6;
+      border-radius: 14px;
+      background: #f6f8fd;
+      color: var(--azul);
+      padding: 22px 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .zona-fotos .gran {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .zona-fotos small {
+      color: var(--suave);
+      font-weight: 400;
+    }
+
+    .zona-fotos.sobre {
+      background: #e8efff;
+      border-color: var(--azul);
+    }
+
+    #input-fotos {
+      display: none;
+    }
+
+    .fotos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .foto {
+      position: relative;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: #1c2230;
+    }
+
+    .foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .foto .sin-vista {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      color: #cbd5e1;
+      font-size: 12px;
+      text-align: center;
+      padding: 6px;
+    }
+
+    .foto.roto img {
+      display: none;
+    }
+
+    .foto.roto .sin-vista {
+      display: grid;
+    }
+
+    .foto .orden {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: var(--azul);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .foto.principal {
+      outline: 3px solid var(--naranja);
+      outline-offset: -3px;
+    }
+
+    .foto .badge {
+      position: absolute;
+      bottom: 36px;
+      left: 6px;
+      background: var(--naranja);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+
+    .foto .del {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #c0392b;
+      color: #fff;
+      border: 0;
+      font-size: 18px;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .foto .mover {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      right: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .foto .mover button {
+      background: rgba(255, 255, 255, .93);
+      color: var(--azul);
+      border: 0;
+      border-radius: 8px;
+      width: 38px;
+      height: 28px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .foto .mover button:disabled {
+      opacity: .35;
+    }
+
+    .plan {
+      margin-top: 14px;
+      display: none;
+    }
+
+    .plan.ver {
+      display: block;
+    }
+
+    .plan h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: var(--suave);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .hojas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hoja {
+      width: 62px;
+      border: 1.5px solid var(--borde);
+      border-radius: 6px;
+      background: #fff;
+      padding: 4px;
+      text-align: center;
+      font-size: 10px;
+      color: var(--suave);
+    }
+
+    .hoja .mini {
+      aspect-ratio: 3 / 4;
+      display: grid;
+      gap: 2px;
+      margin-bottom: 3px;
+    }
+
+    .hoja .mini i {
+      background: #c9d6f2;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .hoja b {
+      color: var(--azul);
+    }
+
+    /* ---------- Avisos y resultado ---------- */
+    .aviso,
+    .ok,
+    .error {
+      padding: 11px 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-top: 12px;
+      border: 1px solid;
+    }
+
+    .aviso {
+      background: var(--av-bg);
+      border-color: var(--av-bd);
+      color: var(--av-tx);
+    }
+
+    .ok {
+      background: var(--ok-bg);
+      border-color: var(--ok-bd);
+      color: var(--ok-tx);
+    }
+
+    .error {
+      background: var(--er-bg);
+      border-color: var(--er-bd);
+      color: var(--er-tx);
+    }
+
+    .acciones {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    @media (min-width: 520px) {
+      .acciones {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 15px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-pdf {
+      background: #c0392b;
+      color: #fff;
+    }
+
+    .btn-word {
+      background: #1f5fbf;
+      color: #fff;
+    }
+
+    .btn-sec {
+      background: #eef3ff;
+      color: var(--azul);
+    }
+
+    .btn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    iframe {
+      width: 100%;
+      height: 70vh;
+      min-height: 420px;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    @media (min-width: 800px) {
+      iframe.puede {
+        display: block;
+      }
+    }
+
+    /* ---------- Barra inferior fija ---------- */
+    .barra {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--borde);
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .barra-in {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .barra .resumen {
+      font-size: 12px;
+      color: var(--suave);
+      line-height: 1.25;
+      flex: none;
+      max-width: 38%;
+    }
+
+    .btn-gen {
+      flex: 1;
+      background: var(--azul);
+      color: #fff;
+      padding: 15px;
+      font-size: 16px;
+    }
+
+    .btn-gen:disabled {
+      background: #93a7c7;
+    }
+
+    .giro {
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255, 255, 255, .4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: gira .8s linear infinite;
+      display: none;
+    }
+
+    .cargando .giro {
+      display: inline-block;
+    }
+
+    @keyframes gira {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="marca">
+      <div class="logo">📄</div>
+      <h1>Informes<small>Armada de Fe</small></h1>
+    </div>
+    <button class="btn-nuevo" id="btn-nuevo" type="button">+ Nuevo</button>
+  </header>
+
+  <main>
+    <!-- PASO 1: Datos -->
+    <section class="card">
+      <div class="card-h"><span class="num">1</span>
+        <h2>Datos del informe</h2>
+      </div>
+
+      <div class="campo">
+        <label class="et" for="ACTIVIDAD">Actividad</label>
+        <input type="text" id="ACTIVIDAD" placeholder="Ej: Estudio bíblico" autocapitalize="sentences"
+          enterkeyhint="next">
+        <p class="hint">Se escribe en MAYÚSCULAS en el informe.</p>
+      </div>
+
+      <div class="campo">
+        <label class="et" for="REF">Referencia <span class="opc">(se completa sola, puedes cambiarla)</span></label>
+        <input type="text" id="REF" placeholder="INFORME DE ACTIVIDAD: ..." enterkeyhint="next">
+      </div>
+
+      <div class="grid2">
+        <div class="campo">
+          <label class="et" for="FECHA_EVENTO">Fecha del evento</label>
+          <div class="con-icono">
+            <input type="text" id="FECHA_EVENTO" placeholder="Sábado 6 de marzo" enterkeyhint="next">
+            <label class="icono-btn" title="Elegir en calendario">📅
+              <input type="date" id="fecha-picker" aria-label="Elegir fecha">
+            </label>
+          </div>
+        </div>
+        <div class="campo">
+          <span class="et">Modalidad</span>
+          <div class="segm" id="segm-modalidad">
+            <button type="button" data-v="Presencial">Presencial</button>
+            <button type="button" data-v="Virtual">Virtual</button>
+            <button type="button" data-v="Mixta">Mixta</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="campo" style="margin-top:14px;">
+        <label class="et" for="PARTICIPANTES">Participantes</label>
+        <textarea id="PARTICIPANTES" style="min-height:80px;"
+          placeholder="Ej: 25 líderes, directiva del Ministerio Joven..."></textarea>
+        <p class="hint">Si pones varias líneas, se unen separadas por comas.</p>
+      </div>
+    </section>
+
+    <!-- PASO 2: Desarrollo -->
+    <section class="card">
+      <div class="card-h"><span class="num">2</span>
+        <h2>Desarrollo de la actividad</h2>
+      </div>
+      <textarea id="DESARROLLO" style="min-height:190px;"
+        placeholder="Escribe aquí el cuerpo del informe. Cada salto de línea crea un párrafo nuevo."></textarea>
+      <div class="contador">
+        <span id="medidor"></span>
+        <span id="cuenta">0 caracteres</span>
+      </div>
+      <p class="hint">Mientras más corto el texto, más grande sale la foto de la hoja 1.</p>
+    </section>
+
+    <!-- PASO 3: Fotos -->
+    <section class="card">
+      <div class="card-h"><span class="num">3</span>
+        <h2>Fotos</h2>
+      </div>
+      <p class="hint" style="margin:0 0 12px;">La <b>primera</b> va en la hoja 1 junto al texto. Las demás se acomodan
+        solas desde la hoja 2. Usa ◀ ▶ para cambiar el orden.</p>
+
+      <label class="zona-fotos" id="zona" for="input-fotos">
+        <span class="gran">📷</span>
+        <span>Agregar fotos</span>
+        <small>Toca para elegir de la galería o tomar una foto</small>
+      </label>
+      <input type="file" id="input-fotos" accept="image/*,.heic,.heif" multiple>
+
+      <div class="fotos" id="lista-fotos"></div>
+
+      <div class="plan" id="plan">
+        <h3>Así quedarán las hojas</h3>
+        <div class="hojas" id="hojas"></div>
+      </div>
+    </section>
+
+    <!-- RESULTADO -->
+    <section class="card" id="resultado" hidden>
+      <div class="card-h"><span class="num">✓</span>
+        <h2>Informe listo</h2>
+      </div>
+      <div id="msg"></div>
+      <div class="acciones" id="acciones"></div>
+      <iframe id="pdf-frame" title="Vista previa del PDF"></iframe>
+    </section>
+  </main>
+
+  <!-- Barra fija con el botón principal -->
+  <div class="barra">
+    <div class="barra-in">
+      <div class="resumen" id="resumen">Sin fotos</div>
+      <button id="btn-generar" class="btn btn-gen" type="button">
+        <span class="giro"></span><span id="txt-gen">Generar informe</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const CAMPOS = ["REF", "ACTIVIDAD", "FECHA_EVENTO", "MODALIDAD", "PARTICIPANTES", "DESARROLLO"];
+    const CLAVE = "armada_borrador_v2";
+    const MAX_LADO = 2400;            // se reducen las fotos del celular antes de subirlas
+    let fotos = [];                   // { file, url }
+    let modalidad = "";
+    let refManual = false;            // true si el usuario escribió la referencia a mano
+    let ultimo = null;                // último resultado { pdf, docx }
+
+    const $ = (id) => document.getElementById(id);
+
+    /* =============== Borrador automático (solo texto) =============== */
+    function guardar() {
+      const d = { MODALIDAD: modalidad, refManual };
+      for (const k of CAMPOS) if (k !== "MODALIDAD") d[k] = $(k).value;
+      try { localStorage.setItem(CLAVE, JSON.stringify(d)); } catch (e) { }
+    }
+    function cargar() {
+      try {
+        const d = JSON.parse(localStorage.getItem(CLAVE) || "null");
+        if (!d) return;
+        for (const k of CAMPOS) if (k !== "MODALIDAD" && d[k] !== undefined) $(k).value = d[k];
+        modalidad = d.MODALIDAD || "";
+        refManual = !!d.refManual;
+      } catch (e) { }
+    }
+
+    /* =============== Modalidad =============== */
+    function pintarModalidad() {
+      document.querySelectorAll("#segm-modalidad button").forEach((b) =>
+        b.classList.toggle("on", b.dataset.v === modalidad));
+    }
+    document.querySelectorAll("#segm-modalidad button").forEach((b) => {
+      b.onclick = () => {
+        modalidad = modalidad === b.dataset.v ? "" : b.dataset.v;   // tocar de nuevo = quitar
+        pintarModalidad(); guardar();
+      };
+    });
+
+    /* =============== Referencia automática =============== */
+    $("ACTIVIDAD").addEventListener("input", () => {
+      if (!refManual) {
+        const a = $("ACTIVIDAD").value.trim().toUpperCase();
+        $("REF").value = a ? "INFORME DE ACTIVIDAD: " + a : "";
+      }
+      guardar();
+    });
+    $("REF").addEventListener("input", () => {
+      refManual = $("REF").value.trim() !== "";
+      guardar();
+    });
+
+    /* =============== Fecha con calendario =============== */
+    $("fecha-picker").addEventListener("change", (e) => {
+      if (!e.target.value) return;
+      const [y, m, d] = e.target.value.split("-").map(Number);
+      const f = new Date(y, m - 1, d);
+      const dia = f.toLocaleDateString("es", { weekday: "long" });
+      const mes = f.toLocaleDateString("es", { month: "long" });
+      $("FECHA_EVENTO").value = dia.charAt(0).toUpperCase() + dia.slice(1) + " " + d + " de " + mes;
+      guardar();
+    });
+
+    /* =============== Medidor del texto =============== */
+    function actualizarTexto() {
+      const n = $("DESARROLLO").value.trim().length;
+      $("cuenta").textContent = n + " caracteres";
+      const m = $("medidor");
+      if (n === 0) { m.textContent = ""; m.className = ""; }
+      else if (n <= 600) { m.textContent = "Foto grande en hoja 1"; m.className = "ok"; }
+      else if (n <= 1100) { m.textContent = "Foto mediana en hoja 1"; m.className = "med"; }
+      else { m.textContent = "Texto largo: foto pequeña"; m.className = "mal"; }
+    }
+    $("DESARROLLO").addEventListener("input", () => { actualizarTexto(); guardar(); });
+    ["FECHA_EVENTO", "PARTICIPANTES"].forEach((k) => $(k).addEventListener("input", guardar));
+
+    /* =============== Fotos =============== */
+    const inputFotos = $("input-fotos");
+    const listaFotos = $("lista-fotos");
+
+    inputFotos.onchange = (e) => agregar(e.target.files);
+
+    function agregar(files) {
+      for (const f of files) {
+        if (f.type && !f.type.startsWith("image/") && !/\.(heic|heif)$/i.test(f.name)) continue;
+        fotos.push({ file: f, url: URL.createObjectURL(f) });
+      }
+      inputFotos.value = "";
+      renderFotos();
+    }
+
+    // Arrastrar y soltar (escritorio)
+    ["dragenter", "dragover"].forEach((ev) => $("zona").addEventListener(ev, (e) => { e.preventDefault(); $("zona").classList.add("sobre"); }));
+    ["dragleave", "drop"].forEach((ev) => $("zona").addEventListener(ev, (e) => { e.preventDefault(); $("zona").classList.remove("sobre"); }));
+    $("zona").addEventListener("drop", (e) => agregar(e.dataTransfer.files));
+
+    function mover(i, d) {
+      const j = i + d;
+      if (j < 0 || j >= fotos.length) return;
+      [fotos[i], fotos[j]] = [fotos[j], fotos[i]];
+      renderFotos();
+    }
+
+    // Misma lógica que generador._planificar_paginas
+    function planificar(n) {
+      if (n <= 0) return [];
+      const plan = [1];
+      let resto = n - 1;
+      while (resto > 0) {
+        if (resto === 5) { plan.push(3, 2); resto = 0; }
+        else if (resto >= 4) { plan.push(4); resto -= 4; }
+        else { plan.push(resto); resto = 0; }
+      }
+      return plan;
+    }
+
+    function renderFotos() {
+      listaFotos.innerHTML = "";
+      fotos.forEach((f, i) => {
+        const div = document.createElement("div");
+        div.className = "foto" + (i === 0 ? " principal" : "");
+        div.innerHTML = `
+          <img alt="Foto ${i + 1}">
+          <div class="sin-vista">Foto ${i + 1}<br>(sin vista previa)</div>
+          <span class="orden">${i + 1}</span>
+          ${i === 0 ? '<span class="badge">Hoja 1</span>' : ""}
+          <button class="del" type="button" title="Quitar" aria-label="Quitar foto ${i + 1}">×</button>
+          <div class="mover">
+            <button class="izq" type="button" ${i === 0 ? "disabled" : ""} aria-label="Mover antes">◀</button>
+            <button class="der" type="button" ${i === fotos.length - 1 ? "disabled" : ""} aria-label="Mover después">▶</button>
+          </div>`;
+        const img = div.querySelector("img");
+        img.onerror = () => div.classList.add("roto");   // p. ej. HEIC en navegadores sin soporte
+        img.src = f.url;
+        div.querySelector(".del").onclick = () => { URL.revokeObjectURL(f.url); fotos.splice(i, 1); renderFotos(); };
+        div.querySelector(".izq").onclick = () => mover(i, -1);
+        div.querySelector(".der").onclick = () => mover(i, +1);
+        listaFotos.appendChild(div);
+      });
+      pintarPlan();
+      const n = fotos.length;
+      $("resumen").textContent = n === 0 ? "Sin fotos" : n + (n === 1 ? " foto" : " fotos");
+    }
+
+    function pintarPlan() {
+      const plan = planificar(fotos.length);
+      $("plan").classList.toggle("ver", plan.length > 0);
+      const cont = $("hojas");
+      cont.innerHTML = "";
+      plan.forEach((cant, i) => {
+        const h = document.createElement("div");
+        h.className = "hoja";
+        let cols = 1, celdas = [1];
+        if (i > 0) {
+          if (cant === 2) { cols = 2; celdas = [1, 1]; }
+          else if (cant === 3) { cols = 2; celdas = [1, 1, 2]; }
+          else if (cant === 4) { cols = 2; celdas = [1, 1, 1, 1]; }
+        }
+        const mini = celdas.map((s) => `<i style="${s === 2 ? "grid-column:span 2" : ""}"></i>`).join("");
+        h.innerHTML = `<div class="mini" style="grid-template-columns:repeat(${cols},1fr)">${mini}</div>Hoja <b>${i + 1}</b> · ${cant}`;
+        cont.appendChild(h);
+      });
+    }
+
+    /* Reduce fotos grandes del celular para subir rápido (HEIC se envía tal cual) */
+    async function reducir(file) {
+      if (/\.(heic|heif)$/i.test(file.name) || /hei[cf]/i.test(file.type)) return file;
+      try {
+        const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+        const lado = Math.max(bmp.width, bmp.height);
+        if (lado <= MAX_LADO && file.size < 3 * 1024 * 1024) { bmp.close && bmp.close(); return file; }
+        const k = Math.min(1, MAX_LADO / lado);
+        const c = document.createElement("canvas");
+        c.width = Math.round(bmp.width * k);
+        c.height = Math.round(bmp.height * k);
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height);
+        ctx.drawImage(bmp, 0, 0, c.width, c.height);
+        bmp.close && bmp.close();
+        const blob = await new Promise((ok) => c.toBlob(ok, "image/jpeg", 0.88));
+        if (!blob) return file;
+        return new File([blob], file.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" });
+      } catch (e) {
+        return file;
+      }
+    }
+
+    /* =============== Generar =============== */
+    function slug() {
+      const s = ($("ACTIVIDAD").value || "informe").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9]+/g, "_").replace(/^_|_$/g, "").toLowerCase();
+      return s || "informe";
+    }
+
+    async function descargar(url, nombre, boton) {
+      const txt = boton.innerHTML;
+      boton.disabled = true; boton.textContent = "Descargando...";
+      try {
+        const r = await fetch(url, { cache: "no-store" });
+        if (!r.ok) throw new Error("No se pudo descargar el archivo.");
+        const blob = await r.blob();
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = nombre;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      } catch (e) {
+        window.open(url, "_blank");          // plan B: abrir en otra pestaña
+      } finally {
+        boton.disabled = false; boton.innerHTML = txt;
+      }
+    }
+
+    function mostrarResultado(res) {
+      ultimo = res;
+      $("resultado").hidden = false;
+      const nombre = slug();
+      const t = Date.now();
+      const pdf = res.pdf ? res.pdf + (res.pdf.includes("?") ? "&" : "?") + "t=" + t : null;
+      const docx = res.docx ? res.docx + (res.docx.includes("?") ? "&" : "?") + "t=" + t : null;
+
+      $("msg").innerHTML = `<div class="${res.pdf ? "ok" : "aviso"}">${res.pdf ? "✅" : "⚠️"} ${res.mensaje || ""}</div>`;
+      const ac = $("acciones");
+      ac.innerHTML = "";
+
+      if (pdf) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "btn btn-pdf"; b.textContent = "⬇ Descargar PDF";
+        b.onclick = () => descargar(pdf, nombre + ".pdf", b);
+        ac.appendChild(b);
+      }
+      if (docx) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "btn btn-word"; b.textContent = "⬇ Descargar Word";
+        b.onclick = () => descargar(docx, nombre + ".docx", b);
+        ac.appendChild(b);
+      }
+      if (pdf) {
+        const a = document.createElement("a");
+        a.className = "btn btn-sec"; a.href = pdf; a.target = "_blank"; a.rel = "noopener";
+        a.textContent = "👁 Ver PDF";
+        ac.appendChild(a);
+      }
+
+      const fr = $("pdf-frame");
+      if (pdf) { fr.src = pdf; fr.classList.add("puede"); } else { fr.removeAttribute("src"); fr.classList.remove("puede"); }
+      $("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    $("btn-generar").onclick = async () => {
+      const btn = $("btn-generar");
+      if (!$("ACTIVIDAD").value.trim()) {
+        $("ACTIVIDAD").focus();
+        $("ACTIVIDAD").scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      const datos = {};
+      for (const k of CAMPOS) datos[k] = k === "MODALIDAD" ? modalidad : $(k).value;
+
+      btn.disabled = true; btn.classList.add("cargando");
+      $("txt-gen").textContent = "Preparando fotos...";
+      $("resultado").hidden = false;
+      $("acciones").innerHTML = "";
+      $("pdf-frame").classList.remove("puede");
+      $("msg").innerHTML = '<div class="aviso">Generando el informe… puede tardar unos segundos.</div>';
+
+      try {
+        const fd = new FormData();
+        fd.append("campos", JSON.stringify(datos));
+        for (let i = 0; i < fotos.length; i++) {
+          const f = await reducir(fotos[i].file);
+          fd.append("fotos", f, `foto_${String(i + 1).padStart(2, "0")}_${f.name}`);
+        }
+        $("txt-gen").textContent = "Generando...";
+        const r = await fetch("/api/generar", { method: "POST", body: fd });
+        if (!r.ok) throw new Error((await r.text()) || "Error del servidor");
+        mostrarResultado(await r.json());
+      } catch (e) {
+        $("msg").innerHTML = `<div class="error">❌ ${String(e.message || e).slice(0, 400)}</div>`;
+      } finally {
+        btn.disabled = false; btn.classList.remove("cargando");
+        $("txt-gen").textContent = "Generar informe";
+      }
+    };
+
+    /* =============== Nuevo informe =============== */
+    $("btn-nuevo").onclick = () => {
+      if (!confirm("¿Empezar un informe nuevo? Se borrarán los datos y las fotos de esta pantalla.")) return;
+      for (const k of CAMPOS) if (k !== "MODALIDAD") $(k).value = "";
+      modalidad = ""; refManual = false;
+      fotos.forEach((f) => URL.revokeObjectURL(f.url));
+      fotos = [];
+      try { localStorage.removeItem(CLAVE); } catch (e) { }
+      pintarModalidad(); renderFotos(); actualizarTexto();
+      $("resultado").hidden = true;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    /* =============== Inicio =============== */
+    cargar();
+    pintarModalidad();
+    actualizarTexto();
+    renderFotos();
+  </script>
+</body>
+
+</html>
